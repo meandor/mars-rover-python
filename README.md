@@ -1,4 +1,7 @@
 # Mars Rover Python
+[![GitHub license](https://img.shields.io/github/license/meandor/mars-rover-python)](https://github.com/meandor/mars-rover-python/blob/main/LICENSE)
+![CircleCI](https://img.shields.io/circleci/build/github/meandor/mars-rover-python)
+
 ## Prerequisites
 Have installed:
 * Python version >= 3.6, you could use for example [pyenv](https://github.com/pyenv/pyenv) to manage multiple Python versions
