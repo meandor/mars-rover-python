@@ -1,5 +1,12 @@
-# mars-rover-python
+# Mars Rover Python
+## Prerequisites
+Have installed:
+* Python version >= 3.6, you could use for example [pyenv](https://github.com/pyenv/pyenv) to manage multiple Python versions
+* [Poetry](https://python-poetry.org/docs/#installation)
+* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to clone this repo
+* An IDE of your choice, for example [PyCharm](https://www.jetbrains.com/pycharm/)
 
+## The Problem
 A squad of robotic rovers are to be landed by NASA on a plateau on Mars.
 
 This plateau, which is curiously rectangular, must be navigated by the rovers so that their on board cameras can get a complete view of the surrounding terrain to send back to Earth.
@@ -31,4 +38,25 @@ Output and new coordinates:
 ```
 1 3 N
 5 1 E
+```
+
+## Usage
+### Install all dependencies
+```bash
+poetry install
+```
+
+### Run unit tests
+```bash
+make unit-test
+```
+
+### Run integration tests
+```bash
+make integration-test
+```
+
+### Run linter
+```bash
+make lint
 ```
