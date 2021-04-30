@@ -9,8 +9,16 @@ jobs:
       POETRY_VIRTUALENVS_IN_PROJECT: "true"
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "poetry.lock" }}
+            - v1-dependencies-
       - run: poetry install
-      - run: ls -all
+      - save_cache:
+          paths:
+            - ~/.venv
+          key: v1-dependencies-{{ checksum "poetry.lock" }}
+      - run: make unit-test
 
 workflows:
   test:
