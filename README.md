@@ -46,17 +46,28 @@ Output and new coordinates:
 poetry install
 ```
 
-### Run unit tests
+### Tests
+To run all tests
+```bash
+make test
+```
+
+#### Run unit tests
 ```bash
 make unit-test
 ```
 
-### Run integration tests
+#### Run integration tests
 ```bash
 make integration-test
 ```
 
-### Run linter
+#### Run linter
 ```bash
 make lint
+```
+
+#### Run Type Checker
+```bash
+make check-types
 ```
