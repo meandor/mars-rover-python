@@ -1,5 +1,21 @@
 version: 2.1
 
+commands:
+  restore_python_cache:
+    description: "Restore cache"
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "poetry.lock" }}
+            - v1-dependencies-
+  save_python_cache:
+    description: "Save cache"
+    steps:
+      - save_cache:
+          paths:
+            - ~/.venv
+          key: v1-dependencies-{{ checksum "poetry.lock" }}
+
 jobs:
   unit-test:
     docker:
@@ -9,18 +25,54 @@ jobs:
       POETRY_VIRTUALENVS_IN_PROJECT: "true"
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "poetry.lock" }}
-            - v1-dependencies-
+      - restore_python_cache
       - run: poetry install
-      - save_cache:
-          paths:
-            - ~/.venv
-          key: v1-dependencies-{{ checksum "poetry.lock" }}
+      - save_python_cache
       - run: make unit-test
+
+  integration-test:
+    docker:
+      - image: cimg/python:3.9.4
+    working_directory: ~/repo
+    environment:
+      POETRY_VIRTUALENVS_IN_PROJECT: "true"
+    steps:
+      - checkout
+      - restore_python_cache
+      - run: poetry install
+      - save_python_cache
+      - run: make integration-test
+
+  type-check:
+    docker:
+      - image: cimg/python:3.9.4
+    working_directory: ~/repo
+    environment:
+      POETRY_VIRTUALENVS_IN_PROJECT: "true"
+    steps:
+      - checkout
+      - restore_python_cache
+      - run: poetry install
+      - save_python_cache
+      - run: make check-types
+
+  lint:
+    docker:
+      - image: cimg/python:3.9.4
+    working_directory: ~/repo
+    environment:
+      POETRY_VIRTUALENVS_IN_PROJECT: "true"
+    steps:
+      - checkout
+      - restore_python_cache
+      - run: poetry install
+      - save_python_cache
+      - run: make lint
 
 workflows:
   test:
     jobs:
       - unit-test
+      - integration-test
+      - type-check
+      - lint
