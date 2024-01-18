@@ -13,7 +13,7 @@ integration-test:
 	poetry run pytest tests/unit
 
 lint:
-	poetry run pylint mars_rover tests
+	poetry run ruff check mars_rover tests
 
 check-types:
 	find ./mars_rover ./tests -type f -name "*.py" -exec poetry run mypy -v --disable-error-code misc --ignore-missing-imports --disallow-untyped-calls --disallow-untyped-defs --disallow-incomplete-defs {} +
